@@ -1,0 +1,10 @@
+16:54:08 **** Incremental Build of configuration Debug for project sw_proj6_cpp ****
+make all 
+make --no-print-directory pre-build
+a9-linaro-pre-build-step
+' '
+make --no-print-directory main-build
+make[1]: Nothing to be done for 'main-build'.
+
+16:54:08 Build Finished (took 464ms)
+

@@ -1,0 +1,7 @@
+vhdl xil_defaultlib  \
+"../../../../hw_proj1.gen/sources_1/bd/hw_proj1/ip/hw_proj1_axi_gpio_0_0/sim/hw_proj1_axi_gpio_0_0.vhd" \
+"../../../../hw_proj1.gen/sources_1/bd/hw_proj1/ip/hw_proj1_rst_ps7_0_50M_0/sim/hw_proj1_rst_ps7_0_50M_0.vhd" \
+"../../../../hw_proj1.gen/sources_1/bd/hw_proj1/ip/hw_proj1_axi_quad_spi_0_0/sim/hw_proj1_axi_quad_spi_0_0.vhd" \
+
+# Do not sort compile order
+nosort

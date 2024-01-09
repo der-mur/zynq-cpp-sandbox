@@ -1,0 +1,50 @@
+16:53:10 **** Incremental Build of configuration Debug for project sw_proj5_cpp ****
+make all 
+make --no-print-directory pre-build
+a9-linaro-pre-build-step
+' '
+make --no-print-directory main-build
+'Building file: ../src/classes/ps_gpio.cpp'
+'Invoking: ARM v7 g++ compiler'
+arm-none-eabi-g++ -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/classes/ps_gpio.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IF:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/export/zybo_z7_20_pfm1/sw/zybo_z7_20_pfm1/standalone_domain/bspinclude/include -MMD -MP -MF"src/classes/ps_gpio.d" -MT"src/classes/ps_gpio.o" -o "src/classes/ps_gpio.o" "../src/classes/ps_gpio.cpp"
+'Finished building: ../src/classes/ps_gpio.cpp'
+' '
+'Building file: ../src/classes/scutimer.cpp'
+'Invoking: ARM v7 g++ compiler'
+arm-none-eabi-g++ -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/classes/scutimer.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IF:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/export/zybo_z7_20_pfm1/sw/zybo_z7_20_pfm1/standalone_domain/bspinclude/include -MMD -MP -MF"src/classes/scutimer.d" -MT"src/classes/scutimer.o" -o "src/classes/scutimer.o" "../src/classes/scutimer.cpp"
+'Finished building: ../src/classes/scutimer.cpp'
+' '
+'Building file: ../src/classes/scuwdt.cpp'
+'Invoking: ARM v7 g++ compiler'
+arm-none-eabi-g++ -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/classes/scuwdt.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IF:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/export/zybo_z7_20_pfm1/sw/zybo_z7_20_pfm1/standalone_domain/bspinclude/include -MMD -MP -MF"src/classes/scuwdt.d" -MT"src/classes/scuwdt.o" -o "src/classes/scuwdt.o" "../src/classes/scuwdt.cpp"
+'Finished building: ../src/classes/scuwdt.cpp'
+' '
+'Building file: ../src/sw_proj5_main.cpp'
+'Invoking: ARM v7 g++ compiler'
+arm-none-eabi-g++ -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/sw_proj5_main.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IF:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/export/zybo_z7_20_pfm1/sw/zybo_z7_20_pfm1/standalone_domain/bspinclude/include -MMD -MP -MF"src/sw_proj5_main.d" -MT"src/sw_proj5_main.o" -o "src/sw_proj5_main.o" "../src/sw_proj5_main.cpp"
+'Finished building: ../src/sw_proj5_main.cpp'
+' '
+'Building file: ../src/system_config.cpp'
+'Invoking: ARM v7 g++ compiler'
+arm-none-eabi-g++ -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/system_config.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IF:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/export/zybo_z7_20_pfm1/sw/zybo_z7_20_pfm1/standalone_domain/bspinclude/include -MMD -MP -MF"src/system_config.d" -MT"src/system_config.o" -o "src/system_config.o" "../src/system_config.cpp"
+'Finished building: ../src/system_config.cpp'
+' '
+'Building file: ../src/tasks.cpp'
+'Invoking: ARM v7 g++ compiler'
+arm-none-eabi-g++ -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/tasks.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -IF:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/export/zybo_z7_20_pfm1/sw/zybo_z7_20_pfm1/standalone_domain/bspinclude/include -MMD -MP -MF"src/tasks.d" -MT"src/tasks.o" -o "src/tasks.o" "../src/tasks.cpp"
+'Finished building: ../src/tasks.cpp'
+' '
+'Building target: sw_proj5_cpp.elf'
+'Invoking: ARM v7 g++ linker'
+arm-none-eabi-g++ -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Wl,-build-id=none -specs=Xilinx.spec -Wl,-T -Wl,../src/lscript.ld -LF:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/export/zybo_z7_20_pfm1/sw/zybo_z7_20_pfm1/standalone_domain/bsplib/lib -o "sw_proj5_cpp.elf"  ./src/classes/axi_gpio.o ./src/classes/ps_gpio.o ./src/classes/scutimer.o ./src/classes/scuwdt.o  ./src/intr_sys.o ./src/sw_proj5_main.o ./src/system_config.o ./src/tasks.o   -Wl,--start-group,-lxil,-lgcc,-lc,-lstdc++,--end-group
+'Finished building target: sw_proj5_cpp.elf'
+' '
+'Invoking: ARM v7 Print Size'
+arm-none-eabi-size sw_proj5_cpp.elf  |tee "sw_proj5_cpp.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  48495	   2964	  23068	  74527	  1231f	sw_proj5_cpp.elf
+'Finished building: sw_proj5_cpp.elf.size'
+' '
+
+16:53:12 Build Finished (took 2s.175ms)
+

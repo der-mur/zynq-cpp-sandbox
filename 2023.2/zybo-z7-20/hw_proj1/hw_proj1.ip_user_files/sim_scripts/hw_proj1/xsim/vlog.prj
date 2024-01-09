@@ -1,0 +1,11 @@
+verilog xil_defaultlib --include "C:/Xilinx/Vivado/2023.2/data/xilinx_vip/include" --include "../../../../hw_proj1.gen/sources_1/bd/hw_proj1/ipshared/ec67/hdl" --include "../../../../hw_proj1.gen/sources_1/bd/hw_proj1/ipshared/6b2b/hdl" \
+"../../../../hw_proj1.gen/sources_1/bd/hw_proj1/ip/hw_proj1_processing_system7_0_0/sim/hw_proj1_processing_system7_0_0.v" \
+"../../../../hw_proj1.gen/sources_1/bd/hw_proj1/ip/hw_proj1_xbar_0/sim/hw_proj1_xbar_0.v" \
+"../../../../hw_proj1.gen/sources_1/bd/hw_proj1/ip/hw_proj1_xlconcat_0_0/sim/hw_proj1_xlconcat_0_0.v" \
+"../../../../hw_proj1.gen/sources_1/bd/hw_proj1/ip/hw_proj1_auto_pc_0/sim/hw_proj1_auto_pc_0.v" \
+"../../../../hw_proj1.gen/sources_1/bd/hw_proj1/sim/hw_proj1.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
