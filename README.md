@@ -384,6 +384,110 @@ namespace timing
 }
 ```
 
+### Triple Timer Counter
+[```ttc.cpp, scutimer.h, scuwdt.cpp, scuwdt.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj6_cpp/src/classes)
+
+The Zynq-7000 contains two Triple Timer Counter, each of which contains three similar timing modules. 
+
+Each individual module of each TTC can be used individually, and this provides another opportunity to create a composition-based driver: a TtcSingleTimer class represents an individual module, and a Ttc class is composed of three TtcSingleTimer objects.
+
+A single timer class (fragment code):
+
+```c++
+class TtcSingleTimer
+{
+public:
+	/* --- CONSTRUCTORS --------- */
+	TtcSingleTimer() {};
+	TtcSingleTimer(std::uint16_t ttc_id, std::uint16_t timer_id); 	// ttc_id = 0 or 1; timer_id = 0, 1 or 2.
+... <snip>
+...
+
+private:
+	// General parameters
+	std::uint32_t m_base_addr {XPAR_PS7_TTC_0_BASEADDR};
+	std::uint16_t m_ttc_id {0};
+	std::uint16_t m_timer_id {0};
+
+	p_TtcIntrHandler p_UserInterruptHandler;
+
+	// Registers
+	device_reg *p_CLOCK_CONTROL_REG {nullptr};
+	device_reg *p_COUNT_CONTROL_REG {nullptr};
+	device_reg *p_COUNT_VALUE_REG {nullptr};
+	device_reg *p_INTERVAL_VALUE_REG {nullptr};
+	device_reg *p_MATCH0_VALUE_REG {nullptr};
+	device_reg *p_MATCH1_VALUE_REG {nullptr};
+	device_reg *p_MATCH2_VALUE_REG {nullptr};
+	device_reg *p_INTR_STATUS_REG {nullptr};
+	device_reg *p_INTR_ENABLE_REG {nullptr};
+	device_reg *p_EVENT_CONTROL_REG {nullptr};
+	device_reg *p_EVENT_COUNT_REG {nullptr};
+
+};
+```
+The Ttc class contains a private array of TtcSingleTimer's:
+```c++
+class Ttc
+{
+public:
+	/* --- CONSTRUCTORS --------- */
+	//Ttc() {}
+	Ttc(std::uint16_t ttc_id);
+
+private:
+	TtcSingleTimer TtcTimerArray[sys::ttc::n_timers_per_ttc];
+};
+```
+
+Note, though, that we can still create a single timer, and this will be a common use case. We need to provide the TTC timer ID (0 or 1) and the module ID (0, 1, or 2):
+```c++
+static TtcSingleTimer TtcSingleTimer0_0(0, 0); // TTC 0, timer 0
+```
+
+If a complete TTC instance is required (i.e. one with all three modules), then the Ttc class constructor would be used:
+```c++
+static Ttc Ttc0(0); // TTC 0, all three modules
+static Ttc Ttc1(1); // TTC 1, all three modules
+```
+
+Below is an example of configuring the timer when a single instance is used:
+```c++
+	/* ----------------------------------------------------------------*/
+	/* Set system timing                                               */
+	/* ----------------------------------------------------------------*/
+
+	/* Disable the TTC before configuring it. */
+	p_TtcSingleTimer0_0->disableTtc();
+
+	/* Mode: Enable Match mode. */
+	bool overflow_or_interval {false}; // If false, then timer works in interval mode
+	bool match_mode {true};
+	bool decrement {false};
+
+	p_TtcSingleTimer0_0->setMode(overflow_or_interval, match_mode, decrement);
+
+
+	/* Set the match values (see system/settings.h for the values). */
+	p_TtcSingleTimer0_0->setMatchValuesF(match0_seconds, match1_seconds, match2_seconds);
+
+	/* Set interrupts: Match 0 (bit 1) and Match 1 (bit 2) => 0x6. */
+	p_TtcSingleTimer0_0->setInterruptEnable(0x06);
+
+	/* Enable the TTC output. */
+	p_TtcSingleTimer0_0->setOutputWaveformOnOff(true);
+
+	/* Set the user interrupt handler and add it to the interrupt system. */
+	p_TtcSingleTimer0_0->setUserIntrHandler(Ttc0_0_IntrHandler);
+	addTtc0ToInterruptSystem(p_TtcSingleTimer0_0);
+```
+
+
+
+
+
+
+
 
 
 
