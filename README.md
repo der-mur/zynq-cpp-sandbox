@@ -384,12 +384,19 @@ namespace timing
 }
 ```
 
+</br></br>
 ### Triple Timer Counter
-[```ttc.cpp, scutimer.h, scuwdt.cpp, scuwdt.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj6_cpp/src/classes)
+[```ttc.cpp, ttc.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj6_cpp/src/classes)
 
-The Zynq-7000 contains two Triple Timer Counter, each of which contains three similar timing modules. 
+The Zynq-7000 contains two Triple Timer Counters, each of which contains three similar timing modules. 
+</br></br>
+![Ttc Block Diagram](assets/images/ttc.png)
+</br></br>
 
 Each individual module of each TTC can be used individually, and this provides another opportunity to create a composition-based driver: a TtcSingleTimer class represents an individual module, and a Ttc class is composed of three TtcSingleTimer objects.
+</br></br>
+![Ttc Class Diagram](assets/images/ttc_class_diagram.png)
+</br></br>
 
 A single timer class (fragment code):
 
@@ -440,17 +447,20 @@ private:
 };
 ```
 
+</br></br>
 Note, though, that we can still create a single timer, and this will be a common use case. We need to provide the TTC timer ID (0 or 1) and the module ID (0, 1, or 2):
 ```c++
 static TtcSingleTimer TtcSingleTimer0_0(0, 0); // TTC 0, timer 0
 ```
 
+</br></br>
 If a complete TTC instance is required (i.e. one with all three modules), then the Ttc class constructor would be used:
 ```c++
 static Ttc Ttc0(0); // TTC 0, all three modules
 static Ttc Ttc1(1); // TTC 1, all three modules
 ```
 
+</br></br>
 Below is an example of configuring the timer when a single instance is used:
 ```c++
 	/* ----------------------------------------------------------------*/
