@@ -147,5 +147,121 @@ p_AxiGpio->writeCh1Pin(PMOD_JE_PIN1, GpioOperation::Clear);
 
 
 ### PS7 GPIO
-Abc
+[```ps_gpio.cpp```, ```ps_gpio.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj5_cpp/src/classes)
+
+The GPIO block internal to the Zynq APU is interesting as it is part of the very flexible MIO system. MIO stands for multiplexed IO, and it means that a range of peripherals (I2C, UART, SPI, GPIO, etc) can be mapped to the limited pinout on the processing side of the Zynq. The GPIO block for the Zynq-7000 is quite large, having four banks comprising a total of 118 pins, but usually only a small range of pins will be left over once the other peripherals are allocated. The upper two banks can however be routed through the programmable logic to available pins in that section. The basic layout is shown below. (Note that there are six banks in Ultrascale devices: 3 MIO and 3 EMIO.)
+
+<br/><br/>
+![PS7 GPIO Block Diagram](assets/images/ps_gpio1.png)
+
+The MIO configuration for the current project is shown below. The LED and two switches are fixed at board layout time. The PMOD header is more flexible as other peripherals can use these pins after the board is created; however, in this project we simply use them as GPIO pins.
+
+<br/><br/>
+![PS7 GPIO Block Diagram](assets/images/ps_gpio2.png)
+
+The PS GPIO driver class diagram is shown below. In fact two classes are involved, and a PsGpio object is created using the OOP principle of composition: PsGpioBank represents an individual bank, and PsGpio is composed of an array of four banks. (In an Ultrascale device, PsGpio would be made up of six PsGpioBank's.) 
+
+<br/><br/>
+![PS GPIO Class Diagram](assets/images/psgpio_class_diagram.png)
+
+The constructor for a single bank is as follows:
+```c++
+PsGpioBank::PsGpioBank(std::uint16_t bank_number)
+{
+	// General settings
+	m_bank_number = bank_number;
+	m_bank_addr = bank_base_addr[bank_number];
+	m_bank_type = bank_type[bank_number];
+	m_bank_size_hex = bank_size_hex[bank_number];
+	m_bank_size_offset = bank_size_offsets[bank_number];
+	m_bank_gpio_allowed = bank_gpio_allowed[bank_number];
+
+	// Register pointers
+	p_MASK_DATA_LSW_REG = reinterpret_cast<device_reg*>(m_bank_addr + MASK_DATA_LSW);
+	p_MASK_DATA_MSW_REG = reinterpret_cast<device_reg*>(m_bank_addr + MASK_DATA_MSW);
+	p_DATA_WRITE_REG = reinterpret_cast<device_reg*>(m_bank_addr + DATA_WRITE - (m_bank_number*0x4));
+	p_DATA_READ_REG = reinterpret_cast<device_reg*>(m_bank_addr + DATA_READ - (m_bank_number*0x4));
+
+	p_DIR_MODE_REG = reinterpret_cast<device_reg*>(m_bank_addr + DIR_MODE + (m_bank_number*0x38));
+	p_OUTPUT_ENABLE_REG = reinterpret_cast<device_reg*>(m_bank_addr + OUTPUT_ENABLE + (m_bank_number*0x38));
+	p_INTR_MASK_REG = reinterpret_cast<device_reg*>(m_bank_addr + INTR_MASK + (m_bank_number*0x38));
+	p_INTR_ENABLE_UNMASK_REG = reinterpret_cast<device_reg*>(m_bank_addr + INTR_ENABLE_UNMASK + (m_bank_number*0x38));
+	p_INTR_DISABLE_MASK_REG = reinterpret_cast<device_reg*>(m_bank_addr + INTR_DISABLE_MASK + (m_bank_number*0x38));
+	p_INTR_STATUS_REG = reinterpret_cast<device_reg*>(m_bank_addr + INTR_STATUS + (m_bank_number*0x38));
+	p_INTR_TYPE_REG = reinterpret_cast<device_reg*>(m_bank_addr + INTR_TYPE + (m_bank_number*0x38));
+	p_INTR_POLARITY_REG = reinterpret_cast<device_reg*>(m_bank_addr + INTR_POLARITY + (m_bank_number*0x38));
+	p_INTR_ANY_EDGE_SENSE_REG = reinterpret_cast<device_reg*>(m_bank_addr + INTR_ANY_EDGE_SENSE + (m_bank_number*0x38));
+}
+```
+
+The constructor for the PsGpio object, then is as follows:
+
+```c++
+PsGpio::PsGpio(){
+	for(int i=0; i <= n_banks; i++)
+	{
+		PsGpioBankArray[i] = PsGpioBank(i);
+	}
+}
+```
+The PsGpio object is created in ```system_config.cpp``` (again it is static, and a pointer is created in ```sys_init()``` to allow access to the GPIO functionality):
+```c++
+static PsGpio	PsGpio0;
+```
+The parameters required for object creation can be found in ```settings.h``` (see also ```common.h``` for the BankType definition):
+```c++
+namespace sys
+{
+	namespace ps_gpio
+	{
+		constexpr std::uint8_t n_banks				= 4; // Four GPIO banks in Zynq7000
+
+		// Bank 0: MIO; Bank 1: MIO; Bank 2: EMIO; Bank 3: EMIO;
+		constexpr BankType bank_type[n_banks]		= { BankType::mio, BankType::mio, BankType::emio, BankType::emio };
+
+		// Bank 0: Pins 0,7,9,10,11,12,13,14,15; Bank 1: 50, 51; Bank 2: All pins; Bank 3: All pins
+		constexpr std::uint32_t bank_gpio_allowed[n_banks] = { 0x0000FE81, 0x00060000, 0xFFFFFFFF, 0xFFFFFFFF };
+
+		// Bank size: Bank 0: 32-bits; Bank 1: 22-bits; Bank 2: 32-bits; Bank 3: 32-bits
+		constexpr std::uint32_t	bank_size_hex[n_banks] = { 0xFFFFFFFF, 0x003FFFFF, 0xFFFFFFFF, 0xFFFFFFFF };
+		constexpr std::uint32_t	bank_size_offsets[n_banks] = { 32, 53, 85, 117 };
+
+		// Bank 0: Pins 0,7,9,10,11,12,13,14,15 set to output.
+		constexpr std::uint32_t bank_gpio_output[n_banks] = { 0x0000FE81, 0x00000000, 0x00000000, 0x00000000 };
+
+		constexpr std::uint32_t bank_base_addr[n_banks] = { XPAR_PS7_GPIO_0_BASEADDR,
+															XPAR_PS7_GPIO_0_BASEADDR + 0x8,
+															XPAR_PS7_GPIO_0_BASEADDR + 0x10,
+															XPAR_PS7_GPIO_0_BASEADDR + 0x18 };
+
+	} // ps_gpio
+} // sys
+```
+
+Finally, the PS GPIO functions can be used in a very similar fashion to the AXI GPIO functions (the interface has been designed so that the signatures are identical):
+
+```c++
+p_PsGpio->writePin(LED4, GpioOperation::Toggle);
+p_PsGpio->writePin(PMOD_JF_PIN4, GpioOperation::Set);
+p_PsGpio->writePin(PMOD_JF_PIN4, GpioOperation::Clear);
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
