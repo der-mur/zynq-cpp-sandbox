@@ -3480,3 +3480,169 @@ TRACE::2024-01-09.14:01:41::SCWMssOS::DEBUG:  swdes dump  F:/Documents/GitHub/zy
 F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
 
 TRACE::2024-01-09.14:01:41::SCWMssOS::Sw design exists and opened at  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2024-01-09.23:03:03::SCWPlatform::Trying to open the hw design at F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:03::SCWPlatform::DSA given F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:03::SCWPlatform::DSA absoulate path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:03::SCWPlatform::DSA directory F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw
+TRACE::2024-01-09.23:03:04::SCWPlatform:: Platform Path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:04::SCWPlatform:: Unique name xilinx:zybo-z7-20::0.0
+TRACE::2024-01-09.23:03:04::SCWPlatform::Do not have an existing db opened. 
+TRACE::2024-01-09.23:03:07::SCWPlatform::Opened new HwDB with name hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWReader::Active system found as  zybo_z7_20_pfm1
+TRACE::2024-01-09.23:03:07::SCWReader::Handling sysconfig zybo_z7_20_pfm1
+TRACE::2024-01-09.23:03:07::SCWDomain::checking for install qemu data   : 
+TRACE::2024-01-09.23:03:07::SCWDomain:: Using the QEMU Data from install at  : C:/Xilinx/Vitis/2023.2/data/emulation/platforms/zynq/sw/a9_standalone/qemu/
+TRACE::2024-01-09.23:03:07::SCWDomain:: Using the QEMU args  from install at  : C:/Xilinx/Vitis/2023.2/data/emulation/platforms/zynq/sw/a9_standalone/qemu/qemu_args.txt
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to open the hw design at F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA given F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA absoulate path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA directory F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Platform Path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Unique name xilinx:zybo-z7-20::0.0
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to set the existing hwdb with name hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Opened existing hwdb hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to open the hw design at F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA given F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA absoulate path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA directory F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Platform Path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Unique name xilinx:zybo-z7-20::0.0
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to set the existing hwdb with name hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Opened existing hwdb hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to open the hw design at F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA given F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA absoulate path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA directory F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Platform Path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Unique name xilinx:zybo-z7-20::0.0
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to set the existing hwdb with name hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Opened existing hwdb hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2024-01-09.23:03:07::SCWReader::Boot application domain added for zynq_fsbl
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to open the hw design at F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA given F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA absoulate path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA directory F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Platform Path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Unique name xilinx:zybo-z7-20::0.0
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to set the existing hwdb with name hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Opened existing hwdb hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2024-01-09.23:03:07::SCWMssOS::Checking the sw design at  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::DEBUG:  swdes dump  
+TRACE::2024-01-09.23:03:07::SCWMssOS::No sw design opened at  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::mss exists loading the mss file  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::Opened the sw design from mss  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::Adding the swdes entry F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss with des name system
+TRACE::2024-01-09.23:03:07::SCWMssOS::updating the scw layer about changes
+TRACE::2024-01-09.23:03:07::SCWMssOS::Opened the sw design.  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to open the hw design at F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA given F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA absoulate path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA directory F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Platform Path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Unique name xilinx:zybo-z7-20::0.0
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to set the existing hwdb with name hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Opened existing hwdb hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2024-01-09.23:03:07::SCWMssOS::Checking the sw design at  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::DEBUG:  swdes dump  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2024-01-09.23:03:07::SCWMssOS::Sw design exists and opened at  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS:: library already available in sw design:  xilffs:5.1
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to open the hw design at F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA given F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA absoulate path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA directory F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Platform Path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Unique name xilinx:zybo-z7-20::0.0
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to set the existing hwdb with name hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Opened existing hwdb hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2024-01-09.23:03:07::SCWMssOS::Checking the sw design at  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::DEBUG:  swdes dump  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2024-01-09.23:03:07::SCWMssOS::Sw design exists and opened at  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS:: library already available in sw design:  xilrsa:1.7
+TRACE::2024-01-09.23:03:07::SCWMssOS::Saving the mss changes F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::Found a swdesign opened with the mssfile.
+TRACE::2024-01-09.23:03:07::SCWMssOS::Completed writemss as part of save.
+TRACE::2024-01-09.23:03:07::SCWMssOS::Commit changes completed.
+TRACE::2024-01-09.23:03:07::SCWReader::Adding prebuilt librarypaths as   
+TRACE::2024-01-09.23:03:07::SCWReader::Adding prebuilt incpaths  as   
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to open the hw design at F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA given F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA absoulate path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA directory F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Platform Path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Unique name xilinx:zybo-z7-20::0.0
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to set the existing hwdb with name hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Opened existing hwdb hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2024-01-09.23:03:07::SCWMssOS::Checking the sw design at  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::DEBUG:  swdes dump  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2024-01-09.23:03:07::SCWMssOS::Sw design exists and opened at  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWReader::No isolation master present  
+TRACE::2024-01-09.23:03:07::SCWDomain::checking for install qemu data   : 
+TRACE::2024-01-09.23:03:07::SCWDomain:: Using the QEMU Data from install at  : C:/Xilinx/Vitis/2023.2/data/emulation/platforms/zynq/sw/a9_standalone/qemu/
+TRACE::2024-01-09.23:03:07::SCWDomain:: Using the QEMU args  from install at  : C:/Xilinx/Vitis/2023.2/data/emulation/platforms/zynq/sw/a9_standalone/qemu/qemu_args.txt
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to open the hw design at F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA given F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA absoulate path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA directory F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Platform Path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Unique name xilinx:zybo-z7-20::0.0
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to set the existing hwdb with name hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Opened existing hwdb hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to open the hw design at F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA given F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA absoulate path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA directory F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Platform Path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Unique name xilinx:zybo-z7-20::0.0
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to set the existing hwdb with name hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Opened existing hwdb hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to open the hw design at F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA given F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA absoulate path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA directory F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Platform Path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Unique name xilinx:zybo-z7-20::0.0
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to set the existing hwdb with name hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Opened existing hwdb hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2024-01-09.23:03:07::SCWMssOS::Checking the sw design at  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::DEBUG:  swdes dump  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2024-01-09.23:03:07::SCWMssOS::No sw design opened at  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::mss exists loading the mss file  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::Opened the sw design from mss  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::Adding the swdes entry F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/ps7_cortexa9_0/standalone_domain/bsp/system.mss with des name system_0
+TRACE::2024-01-09.23:03:07::SCWMssOS::updating the scw layer about changes
+TRACE::2024-01-09.23:03:07::SCWMssOS::Opened the sw design.  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::Saving the mss changes F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::Found a swdesign opened with the mssfile.
+TRACE::2024-01-09.23:03:07::SCWMssOS::Completed writemss as part of save.
+TRACE::2024-01-09.23:03:07::SCWMssOS::Commit changes completed.
+TRACE::2024-01-09.23:03:07::SCWReader::Adding prebuilt librarypaths as   
+TRACE::2024-01-09.23:03:07::SCWReader::Adding prebuilt incpaths  as   
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to open the hw design at F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA given F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA absoulate path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform::DSA directory F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Platform Path F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/hw/hw_proj1_wrapper.xsa
+TRACE::2024-01-09.23:03:07::SCWPlatform:: Unique name xilinx:zybo-z7-20::0.0
+TRACE::2024-01-09.23:03:07::SCWPlatform::Trying to set the existing hwdb with name hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Opened existing hwdb hw_proj1_wrapper
+TRACE::2024-01-09.23:03:07::SCWPlatform::Found the Hw Db part of the input DSA
+TRACE::2024-01-09.23:03:07::SCWMssOS::Checking the sw design at  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWMssOS::DEBUG:  swdes dump  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/ps7_cortexa9_0/standalone_domain/bsp/system.mss|system_0||
+F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/zynq_fsbl/zynq_fsbl_bsp/system.mss|system||
+
+TRACE::2024-01-09.23:03:07::SCWMssOS::Sw design exists and opened at  F:/Documents/GitHub/zynq-cpp-sandbox/2023.2/zybo-z7-20/hw_proj1/vitis_classic/zybo_z7_20_pfm1/ps7_cortexa9_0/standalone_domain/bsp/system.mss
+TRACE::2024-01-09.23:03:07::SCWReader::No isolation master present  

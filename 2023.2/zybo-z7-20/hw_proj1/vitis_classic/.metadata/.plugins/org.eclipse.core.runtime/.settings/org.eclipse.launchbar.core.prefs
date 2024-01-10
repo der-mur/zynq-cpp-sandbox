@@ -1,7 +1,0 @@
-LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
-LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
-LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
-configDescList=org.eclipse.launchbar.core.descriptorType.default\:SystemDebugger_sw_proj5_cpp_system,org.eclipse.launchbar.core.descriptorType.default\:SystemDebugger_sw_proj6_cpp_system,org.eclipse.launchbar.core.descriptorType.default\:SystemDebugger_sw_proj8_cpp_system
-eclipse.preferences.version=1
-org.eclipse.launchbar.core.descriptorType.default\:SystemDebugger_sw_proj5_cpp_system/activeLaunchMode=systemrun
-org.eclipse.launchbar.core.descriptorType.default\:SystemDebugger_sw_proj5_cpp_system/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
