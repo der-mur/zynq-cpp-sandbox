@@ -11,7 +11,7 @@ Points:
 
 ## Drivers
 ### AXI_GPIO (Programmable Logic GPIO IP)
-[```axi_gpio.cpp```, ```axi_gpio.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj5_cpp/src/classes)
+[```axi_gpio.cpp, axi_gpio.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj5_cpp/src/classes)
 
 ![AXI GPIO Class Diagram](assets/images/axigpio_class_diagram_v2.png)
 
@@ -246,6 +246,146 @@ p_PsGpio->writePin(PMOD_JF_PIN4, GpioOperation::Set);
 p_PsGpio->writePin(PMOD_JF_PIN4, GpioOperation::Clear);
 
 ```
+
+### SCU Timer, SCU Watchdog Timer
+[```scutimer.cpp, scutimer.h, scuwdt.cpp, scuwdt.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj5_cpp/src/classes)
+
+Each core in the Cortex-A9 MPCORE has an associated private timer and watchdog timer, known as the ScuTimer and ScuWDT respectively. These are labeled '2' and '3' below.
+
+![Zynq-7000 Timers](assets/images/zynq_timers.png)
+</br></br>
+
+It turns out that these timers are almost identical, with the WDT simply having an extra couple of registers:
+
+![Scutimer/WDT registers](assets/images/scutimer_wdt_registers.png)
+</br></br>
+
+This means that a simple driver structure based on inheritance can be used for the timers; the ScuTimer is the parent class, and the ScuWdt is the child class:
+
+![ScuTimer Class Diagram](assets/images/scutimer_class_diagram.png)
+</br></br>
+
+The ScuTimer class contains the common registers and functionality. (Note that the Timer Registers must be declared as protected rather than private as they must also be used by the child class.):
+```c++
+class ScuTimer
+{
+  public:
+	/* --- CONSTRUCTORS --------- */
+	ScuTimer(std::uint32_t base);
+
+	/* --- PUBLIC METHODS --------- */
+
+	void configure(double time_seconds, bool auto_reload=true, bool irq_enable=true);
+	void start(void); // Set the enable bit in CONTROL REG
+	void stop(void); // Clear the enable bit in CONTROL REG
+	bool getIntrStatus(void);
+	void clearIntrStatus(void);
+	void waitTimerExpired(void);
+
+	void setLoad(float time_seconds);
+	uint32_t getLoad(void);
+
+	void setPrescaler(std::uint8_t prescaler);
+	void clearPrescaler(void);
+	uint16_t getPrescaler(void);
+
+	void setAutoReload(bool val); // 'true' = enable, 'false' = disable AutoReload
+	void setIrqEnable(bool val); // 'true' = enable, 'false' = disable IRQ
+
+
+	// Set/Get user interrupt handler
+	void setUserIntrHandler(p_ScuTimerIntrHandler p_handler);
+	p_ScuTimerIntrHandler getUserIntrHandler(void);
+
+	// test
+	void printRegisters(void);
+
+  protected: // Protected, as the ScuWdt timer class needs to inherit from this class.
+	// Timer registers
+	device_reg *p_LOAD_REG { nullptr };
+	device_reg *p_COUNTER_REG { nullptr };
+	device_reg *p_CONTROL_REG { nullptr };
+	device_reg *p_ISR_REG { nullptr};
+
+	p_ScuTimerIntrHandler p_UserInterruptHandler;
+
+};
+```
+
+The ScuWdt class inherits from ScuTimer, and contains the extended features. It also contains its own version of the configure() fn, which allows it to enable watchdog mode:
+```c++
+class ScuWdt : public ScuTimer
+{
+  public:
+	/* --- CONSTRUCTOR --------- */
+	ScuWdt(std::uint32_t base);
+
+	/* --- METHODS ------------- */
+
+	void configure(double time_seconds, bool auto_reload=true, bool irq_enable=true);
+
+	void setWatchdogMode(void);
+	void clearWatchdogMode(void);
+	void restart(void);
+
+	// test
+	void printRegisters(void);
+
+
+  private:
+	// Registers exclusive to watchdog mode:
+	device_reg *p_RESET_STATUS {nullptr};
+	device_reg *p_WATCHDOG_DISABLE {nullptr};
+
+};
+```
+
+Both timer objects can be created seperately in ```system_settings.cpp```:
+```c++
+static ScuTimer	ScuTimerCore0(ps::reg::base_addr::scutimer0);
+static ScuWdt	ScuWdtCore0(ps::reg::base_addr::scuwdt0);
+```
+
+The system timing is set later in ```sys_init()```;
+```c++
+/* ----------------------------------------------------------------*/
+/* Set system timing                                               */
+/* ----------------------------------------------------------------*/
+p_ScuTimerCore0->configure(sys::timing::scutimer0_time_seconds); // (see system/settings.h
+
+/* Set the user interrupt handler and add it to the interrupt system. */
+p_ScuTimerCore0->setUserIntrHandler(ScuTimerIntrHandler);
+addScuTimerToInterruptSystem(p_ScuTimerCore0);
+
+/* ----------------------------------------------------------------*/
+/* Initialise and start the watchdog                               */
+/* ----------------------------------------------------------------*/
+p_ScuWdtCore0->configure(sys::timing::scuwdt0_timeout_seconds); // (see system/settings.h)
+p_ScuWdtCore0->start();
+```
+
+The timing parameters are set in ```settings.h```  (the ```clock``` settings are also used when creating the timer objects):
+```c++
+namespace sys
+{
+  namespace clock
+    {
+      constexpr std::uint32_t core0_freq_hz = XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ;
+    } // clock
+
+namespace timing
+    {
+      constexpr float scutimer0_time_seconds			= 10e-6; 	// 10us
+      constexpr std::uint32_t	TASK1_INTR_COUNT		= 2;		// 2 interrupt count units
+      constexpr std::uint32_t	TASK2_INTR_COUNT		= 5;		// 5 interrupt count units
+      constexpr float scuwdt0_timeout_seconds			= 10; 		// 10s
+    }
+  }
+}
+```
+
+
+
 
 
 
