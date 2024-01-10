@@ -149,7 +149,7 @@ p_AxiGpio->writeCh1Pin(PMOD_JE_PIN1, GpioOperation::Clear);
 ### PS7 GPIO
 [```ps_gpio.cpp```, ```ps_gpio.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj5_cpp/src/classes)
 
-The GPIO block internal to the Zynq APU is interesting as it is part of the very flexible MIO system. MIO stands for multiplexed IO, and it means that a range of peripherals (I2C, UART, SPI, GPIO, etc) can be mapped to the limited pinout on the processing side of the Zynq. The GPIO block for the Zynq-7000 is quite large, having four banks comprising a total of 118 pins, but usually only a small range of pins will be left over once the other peripherals are allocated. The upper two banks can however be routed through the programmable logic to available pins in that section. The basic layout is shown below. (Note that there are six banks in Ultrascale devices: 3 MIO and 3 EMIO.)
+The GPIO block internal to the Zynq APU is part of the flexible MIO system. MIO stands for multiplexed IO, and it means that a range of peripherals (I2C, UART, SPI, GPIO, etc) can be mapped to the limited pinout on the processing side of the Zynq. The GPIO block for the Zynq-7000 is quite large, having four banks comprising a total of 118 pins, but usually only a small range of pins will be left over once the other peripherals are allocated. The upper two banks can however be routed through the programmable logic to available pins in that section. The basic layout is shown below. (Note that there are six banks in Ultrascale devices: 3 MIO and 3 EMIO.)
 
 ![PS7 GPIO Block Diagram](assets/images/ps_gpio1.png)
 <br/><br/>
@@ -159,7 +159,7 @@ The MIO configuration for the current project is shown below. The LED and two sw
 ![PS7 GPIO Block Diagram](assets/images/ps_gpio2.png)
 <br/><br/>
 
-The PS GPIO driver class diagram is shown below. In fact two classes are involved, and a PsGpio object is created using the OOP principle of composition: PsGpioBank represents an individual bank, and PsGpio is composed of an array of four banks. (In an Ultrascale device, PsGpio would be made up of six PsGpioBank's.) 
+The PS GPIO driver class diagram is given below, showing that the OOP principle of composition is used to create the PsGpio object. Two classes are involved: ```PsGpioBank``` represents an individual bank, and ```PsGpio``` is composed of an array of four banks. (In an Ultrascale device, PsGpio would be made up of six PsGpioBank's.) 
 
 ![PS GPIO Class Diagram](assets/images/psgpio_class_diagram.png)
 <br/><br/>
@@ -194,7 +194,7 @@ PsGpioBank::PsGpioBank(std::uint16_t bank_number)
 }
 ```
 
-The constructor for the PsGpio object, then is as follows:
+The constructor for the PsGpio object, then, is as follows:
 
 ```c++
 PsGpio::PsGpio(){
