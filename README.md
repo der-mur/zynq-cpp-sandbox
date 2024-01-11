@@ -536,10 +536,155 @@ Finally, here is an example of configuring the timer when a single instance is u
 ### PS UART (Processing system UART)
 [```ps_uart.cpp, ps_uart.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj8_cpp/src/classes)
 
-The class diagram for the PS UART is shown below; note that even though it appears to be quite a large class, a lot of functionality is missing from the implementation and it is not really fit for general use. Just enough functionality has been included so that it can be used to implement the command handler project [here](). It's also quite a basic class in that there is no real scope for using any OOP principles like inheritance or composition.
+The class diagram for the PS UART is shown below; note that even though it appears to be quite a large class, a lot of functionality is missing from the implementation and it is not really fit for general use. It just contains enough functionality so that it can be used to implement the command handler project [here](). It's also quite a basic class in that there is no real scope for using any OOP principles like inheritance or composition.
 
 
 ![PS UART Class Diagram](assets/images/axigpio_class_diagram_v2.png)
+
+A private Buffer struct is used in the class to store details of externally created buffers.
+```c++
+private:
+
+// Buffer details. Configured when constructor is called.
+struct Buffer{
+  std::uint8_t *p_Buffer;
+  std::uint8_t size; // 1-64 bytes
+};
+Buffer RxBuffer;
+Buffer TxBuffer;
+```
+
+When the UART object is created in ```system_config.cpp```, the buffer details are passed to the constructor:
+
+```c++
+/* ========= Buffers for UART/Command handling ========= */
+
+/* Uart Buffer for sending data to host (see settings.h for buffer size) */
+static std::uint8_t TxBuffer [tx_buffer_size] = {0};
+
+/* Uart Buffer for receiving data from host (see settings.h for buffer size) */
+static std::uint8_t RxBuffer [rx_buffer_size] = {0};
+
+/* UART constructor*/
+static PsUart PsUart1(1, TxBuffer, tx_buffer_size, RxBuffer, rx_buffer_size);
+```
+
+The buffer sizes are declared in ```system.h```:
+```c++
+namespace sys
+{
+...<snip>
+ namespace ps_uart // Buffer sizes also used for command handler
+    {
+      constexpr std::uint8_t tx_buffer_size	= 4; // 4 bytes for command handler transmit side
+      constexpr std::uint8_t rx_buffer_size	= 10; // 10 bytes for command handler receive side
+    }
+}
+```
+
+The PS UART in this project works in conjunction with a command handler to allow simple COM PORT interaction with host software. The command handler is also implemented as a class; the class diagram and interface code are shown below.
+
+![Command Handler Class Diagram](assets/images/axigpio_class_diagram_v2.png)
+
+```c++
+class CmdHandler
+{
+  public:
+	/* --- CONSTRUCTOR --------- */
+	CmdHandler();
+
+	enum command{ WRITE_WORD = 0x00D3, READ_WORD = 0x00D4};
+
+
+	/* --- METHODS ------------- */
+	/* Main function to be used by comms block ISR */
+	void handleCommand(std::uint8_t *rx_buffer, std::uint8_t *tx_buffer);
+
+
+
+
+  private:
+
+	/* -------- Command frame structure -------*/
+	/*	-----------------------------------------
+	*	| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+	*	-----------------------------------------
+	*	|  CMD  |    FIELD 1    |    FIELD 2    |
+	*	-----------------------------------------*/
+
+	struct cmdFrame {
+		std::uint16_t cmd {0};
+		std::uint32_t field1 {0};
+		std::uint32_t field2 {0};
+	} CmdFrame ;
+
+
+	/* --- METHODS ------------- */
+	/* Functions internal to the command handler */
+	void decodeRxData(std::uint8_t *rx_buffer);
+	void executeCommand(std::uint8_t *tx_buffer);
+	void setResponseBytes(std::uint8_t *tx_buffer, uint32_t tx_data);
+
+};
+```
+
+The UART interrupt handler calls the ```handleCommand()``` fn when a Rx interrupt is received; the code fragment is shown here.
+
+```c++
+void PsUart1IntrHandler(void)
+ {
+
+	/* 1. Read the enabled interrupts. */
+	std::uint16_t enabled_interrupts {0};
+	enabled_interrupts = PsUart1.readEnabledinterrupts();
+
+	/* 2. Get the interrupt status. */
+	std::uint16_t intr_status {0};
+	intr_status = PsUart1.getinterruptStatus();
+
+	/* 3. Clear interrupts. */
+	PsUart1.clearInterrupts(intr_status);
+
+	/* 4. Get the interrupt status based on the enabled interrupts. */
+	uint16_t enabled_intr_status = intr_status & enabled_interrupts;
+
+
+	// --------------------------------------------------------------------------------- //
+	// Check if there was a Rx event i.e. was Rx Trigger interrupt detected? (Bit 0)
+	// --------------------------------------------------------------------------------- //
+	if ( (enabled_intr_status & 0x1) == 0x1 )
+	{
+
+		PsGpio0.writePin(PMOD_JF_PIN9, GpioOperation::Set); /// SET TEST SIGNAL: SET UART RX INTR ///
+
+		/* === RX FROM HOST === */
+		/* Get the data received from the host */
+		PsUart1.recvBytes();
+
+		/* Call function to handle the data */
+		CmdHandler0.handleCommand(PsUart1.getRxBufferPtr(), PsUart1.getTxBufferPtr());
+
+		// Dummy delay
+		for (int i=0; i<=100; i++) {}
+
+		/* === TX TO HOST === */
+		/* Send the response data to the host.
+		 * Note that sendBytes() will enable the Tx FIFO Empty Interrupt (Bit 3). */
+		PsUart1.sendBytes();
+
+
+		PsGpio0.writePin(PMOD_JF_PIN9, GpioOperation::Clear); /// SET TEST SIGNAL: CLEAR UART RX INTR ///
+
+	}
+...<snip>
+}
+```
+
+
+
+
+
+
 
 
 
