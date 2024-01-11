@@ -1,4 +1,4 @@
-# zynq-cpp-sandbox
+# My Zynq C++ Sandbox
 This is my sandbox for exploring the use of C++ to develop projects for the AMD (Xilinx) Zynq. One of the aims is to begin the process of creating a range of c++ drivers that can be re-used for other Zynq-7000/Ultrascale/Microblaze designs. And so as a first step, I've written some basic c++ driver code and converted some of my C-code projects from [here]() into equivalent c++ projects. The table below shows the projects that were targetted:
 
 | Project | Book Chapter | Original C Code | C++ Code (this repo) 
@@ -36,11 +36,14 @@ The AxiGpio class is very simple, but it shows some basic principles that are re
 	device_reg *p_CH2_DATA_REG { nullptr };
 	device_reg *p_CH2_TRI_REG { nullptr };
 ```
+
+<br/><br/>
 The ```device_reg``` is an alias for a volatile uint32_t data type:
 ```c++
 using device_reg = std::uint32_t volatile;
 ```
 
+<br/><br/>
 When the constructor for the device is called, the private data pointers are set to the correct HW value using the ```reinterpret_cast``` operation.
 
 ```c++
@@ -52,7 +55,7 @@ AxiGpio::AxiGpio(std::uint32_t base)
 	p_CH2_TRI_REG = reinterpret_cast<device_reg*>(base + offset::gpio::CH2_TRI);
  }
 ```
-
+<br/><br/>
 When creating the AXI GPIO object, the base address must be passed to the constructor. This is not necessarily the case for the other drivers discussed below, but the AXI IP functionality is very dependent on the users programmable logic design because multiple blocks can be created and the base addresses can be changed. To accomodate this uncertainty I also have a file called ```axi_reg.h``` which the user can modify as needed. (```xparameters.h``` is still used to get the system info i.e. ```XPAR_GPIO_0_BASEADDR``` in this case.) The register offsets are also included in ```axi_reg.h```.
 ```c++
 namespace axi
@@ -88,9 +91,9 @@ namespace axi
   } // reg
 } // axi
 ```
-<br/><br/>
 
-The AXI GPIO object is created in ```system_config.cpp```. It's a static object (i.e. file-scoped to ```system_config.cpp```), and a pointer is also created in the ```sys_init()``` function so that other code can access the GPIO functions. (That is, the pointer can be passed around, giving some control over who has access to the AXIO GPIO block.)
+<br/><br/>
+The AXI GPIO object is created in ```system_config.cpp```. It's a static object (i.e. file-scoped to ```system_config.cpp```), and a pointer is also created in the ```sys_init()``` function so that other code can access the GPIO functions. (That is, the pointer can be passed around, giving some control over who has access to the AXI GPIO block.)
 ```c++
 // system_config.cpp: Call constructor to create the AXI GPIO object
 static AxiGpio	AxiGpio0(axi::reg::base_addr::gpio0);
@@ -103,7 +106,8 @@ AxiGpio* p_AxiGpio0 = &AxiGpio0;
 }
 ```
 
-To accomodate flexibility at the board level, I have a namespace called ```board::gpio::pin_names::axi``` in a file called ```settings.h```. This maps out the GPIO connections at the board level:
+<br/><br/>
+To accomodate flexibility at the board level, I have a namespace called ```board::gpio::pin_names::axi``` in a file called ```settings.h```. This maps out the (AXI) GPIO connections at the board level:
 ```c++
 namespace board
 {
@@ -141,6 +145,8 @@ namespace board
 	} // gpio
 } // board
 ```
+
+<br/><br/>
 I also have a file called ```common.h``` which contains entities that might be used for different modules (i.e. AXI GPIO and PS GPIO):
 ```c++
 namespace common
@@ -151,6 +157,7 @@ namespace common
 }
 ```
 
+<br/><br/>
 Finally, here are some examples of how to toggle an LED, or set/clear PMOD pins:
 ```c++
 p_AxiGpio->writeCh1Pin(LED1, GpioOperation::Toggle);
@@ -163,17 +170,17 @@ p_AxiGpio->writeCh1Pin(PMOD_JE_PIN1, GpioOperation::Clear);
 [```ps_gpio.cpp, ps_gpio.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj5_cpp/src/classes)
 
 The GPIO block internal to the Zynq APU is part of the flexible MIO system. MIO stands for multiplexed IO, and it means that a range of peripherals (I2C, UART, SPI, GPIO, etc) can be mapped to the limited pinout on the processing side of the Zynq. The GPIO block for the Zynq-7000 is quite large, having four banks comprising a total of 118 pins, but usually only a small range of pins will be left over once the other peripherals are allocated. The upper two banks can however be routed through the programmable logic to available pins in that section. The basic layout is shown below. (Note that there are six banks in Ultrascale devices: 3 MIO and 3 EMIO.)
-
+<br/><br/>
 ![PS7 GPIO Block Diagram](assets/images/ps_gpio1.png)
 <br/><br/>
 
 The MIO configuration for the current project is shown below. The LED and two switches are fixed at board layout time. The PMOD header is more flexible as other peripherals can use these pins after the board is created; however, in this project we simply use them as GPIO pins.
-
+<br/><br/>
 ![PS7 GPIO Block Diagram](assets/images/ps_gpio2.png)
 <br/><br/>
 
 The PS GPIO driver class diagram is given below- this shows that the OOP principle of composition is used to create the PsGpio object. Two classes are involved: ```PsGpioBank``` represents an individual bank, and ```PsGpio``` is composed of an array of four banks. (In an Ultrascale device, PsGpio would be made up of six PsGpioBank's.) 
-
+<br/><br/>
 ![PS GPIO Class Diagram](assets/images/psgpio_class_diagram.png)
 <br/><br/>
 
@@ -206,7 +213,7 @@ PsGpioBank::PsGpioBank(std::uint16_t bank_number)
 	p_INTR_ANY_EDGE_SENSE_REG = reinterpret_cast<device_reg*>(m_bank_addr + INTR_ANY_EDGE_SENSE + (m_bank_number*0x38));
 }
 ```
-
+<br/><br/>
 The constructor for the PsGpio object, then, is as follows:
 
 ```c++
@@ -217,10 +224,12 @@ PsGpio::PsGpio(){
 	}
 }
 ```
+<br/><br/>
 The PsGpio object is created in ```system_config.cpp``` (again it is static, and a pointer is created in ```sys_init()``` to allow access to the GPIO functionality):
 ```c++
 static PsGpio	PsGpio0;
 ```
+<br/><br/>
 The parameters required for object creation can be found in ```settings.h``` (see also ```common.h``` for the BankType definition):
 ```c++
 namespace sys
@@ -250,7 +259,7 @@ namespace sys
 	} // ps_gpio
 } // sys
 ```
-
+<br/><br/>
 Finally, the PS GPIO functions can be used in a very similar fashion to the AXI GPIO functions (the interface has been designed so that the signatures are identical):
 
 ```c++
