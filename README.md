@@ -40,7 +40,7 @@ AxiGpio::AxiGpio(std::uint32_t base)
  }
 ```
 
-When creating the AXI GPIO object, the base address must be passed to the contructor. This is not necessarily the case for the other drivers discussed below, but the AXI IP functionality is very dependent on the users programmable logic design in that multiple blocks can be created and the base addresses can be changed. To accomodate this uncertainty I also have a file called ```axi_reg.h``` which the user can modify as needed. (```xparameters.h``` is still used to get the system info i.e. ```XPAR_GPIO_0_BASEADDR``` in this case.) The register offsets are also included in ```axi_reg.h```.
+When creating the AXI GPIO object, the base address must be passed to the constructor. This is not necessarily the case for the other drivers discussed below, but the AXI IP functionality is very dependent on the users programmable logic design because multiple blocks can be created and the base addresses can be changed. To accomodate this uncertainty I also have a file called ```axi_reg.h``` which the user can modify as needed. (```xparameters.h``` is still used to get the system info i.e. ```XPAR_GPIO_0_BASEADDR``` in this case.) The register offsets are also included in ```axi_reg.h```.
 ```c++
 namespace axi
 {
@@ -147,7 +147,7 @@ p_AxiGpio->writeCh1Pin(PMOD_JE_PIN1, GpioOperation::Clear);
 
 
 ### PS7 GPIO
-[```ps_gpio.cpp```, ```ps_gpio.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj5_cpp/src/classes)
+[```ps_gpio.cpp, ps_gpio.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj5_cpp/src/classes)
 
 The GPIO block internal to the Zynq APU is part of the flexible MIO system. MIO stands for multiplexed IO, and it means that a range of peripherals (I2C, UART, SPI, GPIO, etc) can be mapped to the limited pinout on the processing side of the Zynq. The GPIO block for the Zynq-7000 is quite large, having four banks comprising a total of 118 pins, but usually only a small range of pins will be left over once the other peripherals are allocated. The upper two banks can however be routed through the programmable logic to available pins in that section. The basic layout is shown below. (Note that there are six banks in Ultrascale devices: 3 MIO and 3 EMIO.)
 
@@ -159,7 +159,7 @@ The MIO configuration for the current project is shown below. The LED and two sw
 ![PS7 GPIO Block Diagram](assets/images/ps_gpio2.png)
 <br/><br/>
 
-The PS GPIO driver class diagram is given below, showing that the OOP principle of composition is used to create the PsGpio object. Two classes are involved: ```PsGpioBank``` represents an individual bank, and ```PsGpio``` is composed of an array of four banks. (In an Ultrascale device, PsGpio would be made up of six PsGpioBank's.) 
+The PS GPIO driver class diagram is given below- this shows that the OOP principle of composition is used to create the PsGpio object. Two classes are involved: ```PsGpioBank``` represents an individual bank, and ```PsGpio``` is composed of an array of four banks. (In an Ultrascale device, PsGpio would be made up of six PsGpioBank's.) 
 
 ![PS GPIO Class Diagram](assets/images/psgpio_class_diagram.png)
 <br/><br/>
@@ -255,7 +255,7 @@ Each core in the Cortex-A9 MPCORE has an associated private timer and watchdog t
 ![Zynq-7000 Timers](assets/images/zynq_timers.png)
 </br></br>
 
-It turns out that these timers are almost identical, with the WDT simply having an extra couple of registers:
+It turns out that these timers are almost identical- the WDT simply has an extra couple of registers:
 
 ![Scutimer/WDT registers](assets/images/scutimer_wdt_registers.png)
 </br></br>
@@ -393,7 +393,7 @@ The Zynq-7000 contains two Triple Timer Counters, each of which contains three s
 ![Ttc Block Diagram](assets/images/ttc.png)
 </br></br>
 
-Each individual module of each TTC can be used individually, and this provides another opportunity to create a composition-based driver: a TtcSingleTimer class represents an individual module, and a Ttc class is composed of three TtcSingleTimer objects.
+Each module of each TTC can be used individually, and this provides another opportunity to create a composition-based driver: a TtcSingleTimer class represents an individual module, and a Ttc class is composed of three TtcSingleTimer objects.
 </br></br>
 ![Ttc Class Diagram](assets/images/ttc_class_diagram.png)
 </br></br>
@@ -461,7 +461,48 @@ static Ttc Ttc1(1); // TTC 1, all three modules
 ```
 
 </br></br>
-Below is an example of configuring the timer when a single instance is used:
+Note that the ```settings.h``` file contains several parameters related to the TTC:
+
+```c++
+namespace sys
+{
+	namespace clock
+	{
+  		constexpr std::uint32_t core0_freq_hz		= XPAR_PS7_CORTEXA9_0_CPU_CLK_FREQ_HZ;
+  		constexpr std::uint32_t ttc0_freq_hz		= XPAR_XTTCPS_0_TTC_CLK_FREQ_HZ;
+	} // clock
+
+	namespace timing
+	{
+		constexpr float scuwdt0_timeout_seconds		= 10; 		// 10s
+
+		// TTC0-0 task timing
+		constexpr float match0_seconds			= 20e-6;	// 20us
+		constexpr float match1_seconds			= 50e-6;	// 50us
+		constexpr float match2_seconds			= 0;		// not used
+
+		constexpr std::uint16_t match0			= 2222;		// 20us (9ns x 2222)
+		constexpr std::uint16_t match1			= 5556;		// 50us (9ns x 5556)
+		constexpr std::uint16_t match2			= 0;		// n/a
+	}
+
+	namespace ttc
+	{
+
+	  constexpr std::uint8_t n_ttc			= 2;
+	  constexpr std::uint8_t n_timers_per_ttc	= 3;
+	  constexpr std::uint32_t ttc_base[6]		= {	XPAR_PS7_TTC_0_BASEADDR,
+								XPAR_PS7_TTC_1_BASEADDR,
+								XPAR_PS7_TTC_2_BASEADDR,
+								XPAR_PS7_TTC_3_BASEADDR,
+								XPAR_PS7_TTC_4_BASEADDR,
+								XPAR_PS7_TTC_5_BASEADDR };
+  	} // ttc
+}
+```
+
+</br></br>
+Finally, here is an example of configuring the timer when a single instance is used (see ```sys_init()``` in ```system_config.c```):
 ```c++
 	/* ----------------------------------------------------------------*/
 	/* Set system timing                                               */
@@ -491,6 +532,15 @@ Below is an example of configuring the timer when a single instance is used:
 	p_TtcSingleTimer0_0->setUserIntrHandler(Ttc0_0_IntrHandler);
 	addTtc0ToInterruptSystem(p_TtcSingleTimer0_0);
 ```
+
+### PS UART (Processing system UART)
+[```ps_uart.cpp, ps_uart.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj8_cpp/src/classes)
+
+The class diagram for the PS UART is shown below; note that even though it appears to be quite a large class, a lot of functionality is missing from the implementation and it is not really fit for general use. Just enough functionality has been included so that it can be used to implement the command handler project [here](). It's also quite a basic class in that there is no real scope for using any OOP principles like inheritance or composition.
+
+
+![PS UART Class Diagram](assets/images/axigpio_class_diagram_v2.png)
+
 
 
 
