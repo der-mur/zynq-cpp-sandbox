@@ -539,8 +539,9 @@ Finally, here is an example of configuring the timer when a single instance is u
 The class diagram for the PS UART is shown below; note that even though it appears to be quite a large class, a lot of functionality is missing from the implementation and it is not really fit for general use. It just contains enough functionality so that it can be used to implement the command handler project [here](). It's also quite a basic class in that there is no real scope for using any OOP principles like inheritance or composition.
 
 
-![PS UART Class Diagram](assets/images/axigpio_class_diagram_v2.png)
+![PS UART Class Diagram](assets/images/ps_uart_class_diagram.png)
 
+</br></br>
 A private Buffer struct is used in the class to store details of externally created buffers.
 ```c++
 private:
@@ -554,6 +555,7 @@ Buffer RxBuffer;
 Buffer TxBuffer;
 ```
 
+</br></br>
 When the UART object is created in ```system_config.cpp```, the buffer details are passed to the constructor:
 
 ```c++
@@ -565,10 +567,11 @@ static std::uint8_t TxBuffer [tx_buffer_size] = {0};
 /* Uart Buffer for receiving data from host (see settings.h for buffer size) */
 static std::uint8_t RxBuffer [rx_buffer_size] = {0};
 
-/* UART constructor*/
+/* UART constructor */
 static PsUart PsUart1(1, TxBuffer, tx_buffer_size, RxBuffer, rx_buffer_size);
 ```
 
+</br></br>
 The buffer sizes are declared in ```system.h```:
 ```c++
 namespace sys
@@ -582,9 +585,11 @@ namespace sys
 }
 ```
 
-The PS UART in this project works in conjunction with a command handler to allow simple COM PORT interaction with host software. The command handler is also implemented as a class; the class diagram and interface code are shown below.
+</br></br>
+The PS UART in this project works in conjunction with a command handler to allow simple COM PORT interaction with host software. The command handler is also implemented as a class, as shown below.
 
-![Command Handler Class Diagram](assets/images/axigpio_class_diagram_v2.png)
+</br></br>
+![Command Handler Class Diagram](assets/images/command_handler_class_diagram.png)
 
 ```c++
 class CmdHandler
@@ -628,7 +633,8 @@ class CmdHandler
 };
 ```
 
-The UART interrupt handler calls the ```handleCommand()``` fn when a Rx interrupt is received; the code fragment is shown here.
+</br></br>
+The UART interrupt handler calls the ```handleCommand()``` fn when a Rx interrupt is received; the code fragment is shown here. (```PsUart1IntrHandler``` is defined in ```system_config.cpp```.) 
 
 ```c++
 void PsUart1IntrHandler(void)
