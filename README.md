@@ -585,10 +585,26 @@ namespace sys
 }
 ```
 
-</br></br>
-The PS UART in this project works in conjunction with a command handler to allow simple COM PORT interaction with host software. The command handler is also implemented as a class, as shown below.
+The UART is initialised in ```sys_init()``` in ```system_config.cpp```:
+```c++
+/* ----------------------------------------------------------------*/
+/* Configure the Uart. It will be used for the command handler     */
+/* (Note that most of the init is done in the constructor.)        */
+/* ----------------------------------------------------------------*/
+
+/* First, ensure all interrupts are disabled. */
+p_PsUart1->disableAll_Interrupts();
+/* Enable rx_trig interrupt (= bit 0). Note that the Tx FIFO Empty
+ * Interrupt (Bit 3) is set when the interrupt handler is called. */
+p_PsUart1->enableInterrupts(0x1); // rx_trig, bit 0
+
+/* Set the user interrupt handler and add it to the interrupt system. */
+p_PsUart1->setUserIntrHandler(PsUart1IntrHandler);
+addUart1ToInterruptSystem(p_PsUart1);
+```
 
 </br></br>
+The PS UART in this project works in conjunction with a command handler to allow simple COM PORT interaction with host software. The command handler is also implemented as a class, as shown below.
 ![Command Handler Class Diagram](assets/images/command_handler_class_diagram.png)
 
 ```c++
@@ -632,9 +648,16 @@ class CmdHandler
 
 };
 ```
+</br></br>
+The command handler object is created in  ```system_config.cpp```, like all the other objects:
+
+```c++
+//  CREATE STATIC OBJECT FOR COMMAND HANDLER
+static CmdHandler CmdHandler0;
+```
 
 </br></br>
-The UART interrupt handler calls the ```handleCommand()``` fn when a Rx interrupt is received; the code fragment is shown here. (```PsUart1IntrHandler``` is defined in ```system_config.cpp```.) 
+The UART interrupt handler calls the ```handleCommand()``` fn when a Rx interrupt is received; the code fragment is shown here. (```PsUart1IntrHandler()``` is defined in ```system_config.cpp```.) 
 
 ```c++
 void PsUart1IntrHandler(void)
