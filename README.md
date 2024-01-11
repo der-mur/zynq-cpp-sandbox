@@ -165,7 +165,8 @@ p_AxiGpio->writeCh1Pin(PMOD_JE_PIN1, GpioOperation::Set);
 p_AxiGpio->writeCh1Pin(PMOD_JE_PIN1, GpioOperation::Clear);
 ```
 
-
+<br/><br/>
+<br/><br/>
 ### PS7 GPIO
 [```ps_gpio.cpp, ps_gpio.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj5_cpp/src/classes)
 
@@ -213,9 +214,9 @@ PsGpioBank::PsGpioBank(std::uint16_t bank_number)
 	p_INTR_ANY_EDGE_SENSE_REG = reinterpret_cast<device_reg*>(m_bank_addr + INTR_ANY_EDGE_SENSE + (m_bank_number*0x38));
 }
 ```
+
 <br/><br/>
 The constructor for the PsGpio object, then, is as follows:
-
 ```c++
 PsGpio::PsGpio(){
 	for(int i=0; i <= n_banks; i++)
@@ -224,11 +225,13 @@ PsGpio::PsGpio(){
 	}
 }
 ```
+
 <br/><br/>
 The PsGpio object is created in ```system_config.cpp``` (again it is static, and a pointer is created in ```sys_init()``` to allow access to the GPIO functionality):
 ```c++
 static PsGpio	PsGpio0;
 ```
+
 <br/><br/>
 The parameters required for object creation can be found in ```settings.h``` (see also ```common.h``` for the BankType definition):
 ```c++
@@ -251,24 +254,23 @@ namespace sys
 		// Bank 0: Pins 0,7,9,10,11,12,13,14,15 set to output.
 		constexpr std::uint32_t bank_gpio_output[n_banks] = { 0x0000FE81, 0x00000000, 0x00000000, 0x00000000 };
 
-		constexpr std::uint32_t bank_base_addr[n_banks] = { XPAR_PS7_GPIO_0_BASEADDR,
-															XPAR_PS7_GPIO_0_BASEADDR + 0x8,
-															XPAR_PS7_GPIO_0_BASEADDR + 0x10,
-															XPAR_PS7_GPIO_0_BASEADDR + 0x18 };
+		constexpr std::uint32_t bank_base_addr[n_banks] = { XPAR_PS7_GPIO_0_BASEADDR, XPAR_PS7_GPIO_0_BASEADDR + 0x8,
+									XPAR_PS7_GPIO_0_BASEADDR + 0x10, XPAR_PS7_GPIO_0_BASEADDR + 0x18 };
 
 	} // ps_gpio
 } // sys
 ```
+
 <br/><br/>
 Finally, the PS GPIO functions can be used in a very similar fashion to the AXI GPIO functions (the interface has been designed so that the signatures are identical):
-
 ```c++
 p_PsGpio->writePin(LED4, GpioOperation::Toggle);
 p_PsGpio->writePin(PMOD_JF_PIN4, GpioOperation::Set);
 p_PsGpio->writePin(PMOD_JF_PIN4, GpioOperation::Clear);
 
 ```
-
+<br/><br/>
+<br/><br/>
 ### SCU Timer, SCU Watchdog Timer
 [```scutimer.cpp, scutimer.h, scuwdt.cpp, scuwdt.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj5_cpp/src/classes)
 
@@ -334,6 +336,7 @@ class ScuTimer
 };
 ```
 
+<br/><br/>
 The ScuWdt class inherits from ScuTimer, and contains the extended features. It also contains its own version of the configure() fn, which allows it to enable watchdog mode:
 ```c++
 class ScuWdt : public ScuTimer
@@ -361,13 +364,13 @@ class ScuWdt : public ScuTimer
 
 };
 ```
-
+<br/><br/>
 Both timer objects can be created seperately in ```system_settings.cpp```:
 ```c++
 static ScuTimer	ScuTimerCore0(ps::reg::base_addr::scutimer0);
 static ScuWdt	ScuWdtCore0(ps::reg::base_addr::scuwdt0);
 ```
-
+<br/><br/>
 The system timing is set later in ```sys_init()```;
 ```c++
 /* ----------------------------------------------------------------*/
@@ -407,6 +410,7 @@ namespace timing
 ```
 
 </br></br>
+<br/><br/>
 ### Triple Timer Counter
 [```ttc.cpp, ttc.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj6_cpp/src/classes)
 
@@ -420,7 +424,7 @@ Each module of each TTC can be used individually, and this provides another oppo
 ![Ttc Class Diagram](assets/images/ttc_class_diagram.png)
 </br></br>
 
-A single timer class (fragment code):
+The single timer class (fragment code):
 
 ```c++
 class TtcSingleTimer
@@ -455,6 +459,7 @@ private:
 
 };
 ```
+<br/><br/>
 The Ttc class contains a private array of TtcSingleTimer's:
 ```c++
 class Ttc
@@ -555,16 +560,18 @@ Finally, here is an example of configuring the timer when a single instance is u
 	addTtc0ToInterruptSystem(p_TtcSingleTimer0_0);
 ```
 
+</br></br>
+</br></br>
 ### PS UART (Processing system UART) and Command Handler
 [```ps_uart.cpp, ps_uart.h, cmd_handler.cpp, cmd_handler.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj8_cpp/src/classes)
 
-The class diagram for the PS UART is shown below; note that even though it appears to be quite a large class, a lot of functionality is missing from the implementation and it is really not fit for general use. It just contains enough functionality so that it can be used to implement the command handler project [here](). It's also quite a basic class in that there is no real scope for using any OOP principles like inheritance or composition.
+The class diagram for the PS UART is shown below; note that even though it appears to be quite a large class, a lot of functionality is missing from the implementation and it is really not fit for general use. It just contains enough functionality so that it can be used to implement the command handler project [here](https://github.com/der-mur/book1-zynq-intro/tree/master/step-by-step/files_for_import/zybo-z7-20/sw_src_files/sw_proj8). It's also quite a basic class in that there is no real scope for using any OOP principles like inheritance or composition. (In saying that, one idea would be to create a base class containing common UART features, and a child class that implements the modem features, as the modem signals are rarely used.)
 
 
 ![PS UART Class Diagram](assets/images/ps_uart_class_diagram.png)
 
 </br></br>
-A private Buffer struct is used in the class to store details of externally created buffers.
+A private ```Buffer``` struct is used in the class to store details of externally created buffers.
 ```c++
 private:
 
@@ -616,6 +623,7 @@ The UART is initialised in ```sys_init()``` in ```system_config.cpp```:
 
 /* First, ensure all interrupts are disabled. */
 p_PsUart1->disableAll_Interrupts();
+
 /* Enable rx_trig interrupt (= bit 0). Note that the Tx FIFO Empty
  * Interrupt (Bit 3) is set when the interrupt handler is called. */
 p_PsUart1->enableInterrupts(0x1); // rx_trig, bit 0
@@ -727,7 +735,6 @@ void PsUart1IntrHandler(void)
 		PsGpio0.writePin(PMOD_JF_PIN9, GpioOperation::Clear); /// CLEAR TEST SIGNAL: UART RX INTR ///
 
 	}
-...<snip>
 }
 ```
 
