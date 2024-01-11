@@ -9,6 +9,15 @@ Points:
 - Very little defensive code is used in the drivers as they curently stand.
 - Having an understanding of Zynq HW, IP blocks and c-code drivers would be useful in the discussion below.
 
+
+
+| Project | Book Chapter | Original C Code | C++ Code (this repo) 
+| ------- | ------- | ------- | ------- |
+| SW Project 5 (ScuTimers)| 11 | [link](https://github.com/der-mur/book1-zynq-intro/tree/master/step-by-step/files_for_import/zybo-z7-20/sw_src_files/sw_proj5) | [link](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj5_cpp/src) |
+| SW Project 6 (TTC Timers) | 12 | [link](https://github.com/der-mur/book1-zynq-intro/tree/master/step-by-step/files_for_import/zybo-z7-20/sw_src_files/sw_proj6) | [link](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj6_cpp/src) |
+| SW Project 8 (PS Uart + Command Handler) | 14 | [link](https://github.com/der-mur/book1-zynq-intro/tree/master/step-by-step/files_for_import/zybo-z7-20/sw_src_files/sw_proj8) | [link](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj8_cpp/src) |
+
+<br/><br/>
 ## Drivers
 ### AXI_GPIO (Programmable Logic GPIO IP)
 [```axi_gpio.cpp, axi_gpio.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj5_cpp/src/classes)
@@ -533,10 +542,10 @@ Finally, here is an example of configuring the timer when a single instance is u
 	addTtc0ToInterruptSystem(p_TtcSingleTimer0_0);
 ```
 
-### PS UART (Processing system UART)
-[```ps_uart.cpp, ps_uart.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj8_cpp/src/classes)
+### PS UART (Processing system UART) and Command Handler
+[```ps_uart.cpp, ps_uart.h, cmd_handler.cpp, cmd_handler.h```](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj8_cpp/src/classes)
 
-The class diagram for the PS UART is shown below; note that even though it appears to be quite a large class, a lot of functionality is missing from the implementation and it is not really fit for general use. It just contains enough functionality so that it can be used to implement the command handler project [here](). It's also quite a basic class in that there is no real scope for using any OOP principles like inheritance or composition.
+The class diagram for the PS UART is shown below; note that even though it appears to be quite a large class, a lot of functionality is missing from the implementation and it is really not fit for general use. It just contains enough functionality so that it can be used to implement the command handler project [here](). It's also quite a basic class in that there is no real scope for using any OOP principles like inheritance or composition.
 
 
 ![PS UART Class Diagram](assets/images/ps_uart_class_diagram.png)
@@ -684,7 +693,7 @@ void PsUart1IntrHandler(void)
 	if ( (enabled_intr_status & 0x1) == 0x1 )
 	{
 
-		PsGpio0.writePin(PMOD_JF_PIN9, GpioOperation::Set); /// SET TEST SIGNAL: SET UART RX INTR ///
+		PsGpio0.writePin(PMOD_JF_PIN9, GpioOperation::Set); /// SET TEST SIGNAL: UART RX INTR ///
 
 		/* === RX FROM HOST === */
 		/* Get the data received from the host */
@@ -702,7 +711,7 @@ void PsUart1IntrHandler(void)
 		PsUart1.sendBytes();
 
 
-		PsGpio0.writePin(PMOD_JF_PIN9, GpioOperation::Clear); /// SET TEST SIGNAL: CLEAR UART RX INTR ///
+		PsGpio0.writePin(PMOD_JF_PIN9, GpioOperation::Clear); /// CLEAR TEST SIGNAL: UART RX INTR ///
 
 	}
 ...<snip>
