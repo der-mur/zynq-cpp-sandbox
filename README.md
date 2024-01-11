@@ -1,21 +1,25 @@
 # zynq-cpp-sandbox
-This is my sandbox for exploring the use of C++ to develop projects for the AMD (Xilinx) Zynq.
-Points:
-- Main aim is to begin the process of creating a range of c++ drivers which can be re-used for other Zynq-7000/Ultrascale/Microblaze designs. 
-- Simple 'skeleton' drivers, not fully functional, not fully tested.
-- A lot of the underlying C code is still being used. For example:
-  - The ```xparameters.h file``` is used for accessing system paramters and settings.
-  - The Xilinx interrupt driver code has not been rewritten as c++ code, etc.
-- Very little defensive code is used in the drivers as they curently stand.
-- Having an understanding of Zynq HW, IP blocks and c-code drivers would be useful in the discussion below.
-
-
+This is my sandbox for exploring the use of C++ to develop projects for the AMD (Xilinx) Zynq. One of the aims is to begin the process of creating a range of c++ drivers that can be re-used for other Zynq-7000/Ultrascale/Microblaze designs. And so as a first step, I've written some basic c++ driver code and converted some of my C-code projects from [here]() into equivalent c++ projects. The table below shows the projects that were targetted:
 
 | Project | Book Chapter | Original C Code | C++ Code (this repo) 
 | ------- | ------- | ------- | ------- |
-| SW Project 5 (ScuTimers)| 11 | [link](https://github.com/der-mur/book1-zynq-intro/tree/master/step-by-step/files_for_import/zybo-z7-20/sw_src_files/sw_proj5) | [link](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj5_cpp/src) |
+| SW Project 5 (Intro to Interrupt Handling, ScuTimers)| 11 | [link](https://github.com/der-mur/book1-zynq-intro/tree/master/step-by-step/files_for_import/zybo-z7-20/sw_src_files/sw_proj5) | [link](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj5_cpp/src) |
 | SW Project 6 (TTC Timers) | 12 | [link](https://github.com/der-mur/book1-zynq-intro/tree/master/step-by-step/files_for_import/zybo-z7-20/sw_src_files/sw_proj6) | [link](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj6_cpp/src) |
 | SW Project 8 (PS Uart + Command Handler) | 14 | [link](https://github.com/der-mur/book1-zynq-intro/tree/master/step-by-step/files_for_import/zybo-z7-20/sw_src_files/sw_proj8) | [link](2023.2/zybo-z7-20/hw_proj1/vitis_classic/sw_proj8_cpp/src) |
+
+<br/><br/>
+Some points to be aware of in this introductory work: 
+- Drivers were created for the AXI and PS GPIO blocks, Scu Timer, Scu Wdt, Triple Timer Counter, PS UART, and the command handler.
+- It is still necessary to use a lot of the underlying Xilinx C code base. For example:
+  - The ```xparameters.h file``` is used for accessing system parameters and settings.
+  - The Xilinx interrupt driver code (e.g. scugic, xil_exceptions, etc) has not been rewritten as c++ code. (This would be an interesting project in its own right, but I have not looked at it yet.)
+  - The low-overhead Xilinx print macro, ```XIL_PRINTF```, is still used in the c++ projects, rather than using ```std::cout``` from the c++ ```<iostream>``` library. (I was originally using ```<iostream>```, but the library adds about 500 kb to the builds!)
+- Creating the c++ drivers allowed me to look at some general OOP concepts like inheritance and composition, but the projects don't really go very deep into any of the more interesting features of the c++ language. 
+
+> [!CAUTION]
+> The current drivers are not fully-featured drivers, i.e. just enough code is implemented so that the c++ projects run identically to the C-code versions. Also, there is generally not a lot of defensive coding in the drivers, nor are they well documented, so it might not be too difficult to use them incorrectly. 
+
+A basic discussion of the implemented drivers is given below. (Having an understanding of Zynq HW, IP blocks and c-code drivers would be useful for this section.)
 
 <br/><br/>
 ## Drivers
