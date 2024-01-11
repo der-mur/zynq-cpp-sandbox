@@ -9,11 +9,11 @@ This is my sandbox for exploring the use of C++ to develop projects for the AMD 
 
 <br/><br/>
 Some points to be aware of in this introductory work: 
-- Drivers were created for the AXI and PS GPIO blocks, Scu Timer, Scu Wdt, Triple Timer Counter, PS UART, and the command handler.
+- Drivers were created for the AXI and PS GPIO blocks, ScuTimer, ScuWdt, Triple Timer Counter, PS UART, and the command handler.
 - It is still necessary to use a lot of the underlying Xilinx C code base. For example:
   - The ```xparameters.h file``` is used for accessing system parameters and settings.
   - The Xilinx interrupt driver code (e.g. scugic, xil_exceptions, etc) has not been rewritten as c++ code. (This would be an interesting project in its own right, but I have not looked at it yet.)
-  - The low-overhead Xilinx print macro, ```XIL_PRINTF```, is still used in the c++ projects, rather than using ```std::cout``` from the c++ ```<iostream>``` library. (I was originally using ```<iostream>```, but the library adds about 500 kb to the builds!)
+  - The low-overhead Xilinx print macro ```XIL_PRINTF``` is still used in the c++ projects, rather than using ```std::cout``` from the c++ ```<iostream>``` library. (I was originally using ```<iostream>```, but the library adds about 500 kB to the builds!)
 - Creating the c++ drivers allowed me to look at some general OOP concepts like inheritance and composition, but the projects don't really go very deep into any of the more interesting features of the c++ language. 
 
 > [!CAUTION]
