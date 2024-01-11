@@ -178,8 +178,12 @@ Status sys_init(DriverPointers* p_DriverPointers){
 	p_TtcSingleTimer0_0->setMode(overflow_or_interval, match_mode, decrement);
 
 
-	/* Set the match values (see system/settings.h for the values). */
-	p_TtcSingleTimer0_0->setMatchValuesF(match0_seconds, match1_seconds, match2_seconds);
+	/* Set the match values (see system/settings.h for the values).
+	 * Note we are using an overloaded function, so use a cast
+	 * to ensure there is no ambiguity. */
+	p_TtcSingleTimer0_0->setMatchValues((double) match0_seconds,
+										(double) match1_seconds,
+										(double) match2_seconds);
 
 	/* Set interrupts: Match 0 (bit 1) and Match 1 (bit 2) => 0x6. */
 	p_TtcSingleTimer0_0->setInterruptEnable(0x06);

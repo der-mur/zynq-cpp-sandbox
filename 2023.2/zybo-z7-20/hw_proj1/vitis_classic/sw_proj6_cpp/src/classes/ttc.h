@@ -96,10 +96,10 @@ public:
 	void setIntervalValue(std::uint16_t interval);
 
 
-	/* Set the match values to be used in match mode. */
+	/* Set the match values to be used in match mode. The function can be overloaded. */
 	void setMatchValues(std::uint16_t match0, std::uint16_t match1, std::uint16_t match2);
+	void setMatchValues(double match0_seconds, double match1_seconds, double match2_seconds);
 
-	void setMatchValuesF(double match0_seconds, double match1_seconds, double match2_seconds);
 
 	/* Get the counter value from COUNTER register */
 	std::uint16_t getCount(void);

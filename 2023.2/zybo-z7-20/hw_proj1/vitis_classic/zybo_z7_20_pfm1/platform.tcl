@@ -19,3 +19,5 @@ platform generate
 platform clean
 platform generate
 platform active {zybo_z7_20_pfm1}
+platform active {zybo_z7_20_pfm1}
+platform generate -domains 

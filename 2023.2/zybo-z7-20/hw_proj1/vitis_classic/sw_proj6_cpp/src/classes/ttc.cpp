@@ -210,7 +210,7 @@ void TtcSingleTimer::setMatchValues(std::uint16_t match0, std::uint16_t match1, 
 }
 
 // double version:
-void TtcSingleTimer::setMatchValuesF(double match0_seconds, double match1_seconds, double match2_seconds){
+void TtcSingleTimer::setMatchValues(double match0_seconds, double match1_seconds, double match2_seconds){
 
 	*p_MATCH0_VALUE_REG = static_cast<std::uint16_t>( match0_seconds / ttc_period_ns );
 	*p_MATCH1_VALUE_REG = static_cast<std::uint16_t>( match1_seconds / ttc_period_ns );
