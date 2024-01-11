@@ -17,7 +17,7 @@ Some points to be aware of in this introductory work:
 - Creating the c++ drivers allowed me to look at some general OOP concepts like inheritance and composition, but the projects don't really go very deep into any of the more interesting features of the c++ language. 
 
 > [!CAUTION]
-> The current drivers are not fully-featured drivers, i.e. just enough code is implemented so that the c++ projects run identically to the C-code versions. Also, there is generally not a lot of defensive coding in the drivers, nor are they well documented, so it might not be too difficult to use them incorrectly. 
+> The current drivers are not fully-featured drivers, i.e. just enough code is implemented so that the c++ projects run identically to the C-code versions. Also, in general there is not a lot of defensive coding in the drivers, nor are they well documented, so it might be relatively easy to use them incorrectly. 
 
 A basic discussion of the implemented drivers is given below. (Having an understanding of Zynq HW, IP blocks and c-code drivers would be useful for this section.)
 
